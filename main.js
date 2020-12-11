@@ -1,158 +1,120 @@
-var canvas = new fabric.Canvas("myCanvas");
+var Canvas = new fabric.Canvas("MyCanvas");
 
-var Bl_W = 30;
-var Bl_H = 30;
+var S_Width = 30;
+var S_Height = 30;
 
-var Ply_X = 10;
-var Ply_Y = 10;
+var Super_X = 10;
+var Super_Y = 10;
 
-var Ply_Obj = "";
-var Bl_Img = "";
+var Super_I;
+var Super_BI;
 
-function Ply_Img(){
+function Ply_Up(){
     fabric.Image.fromURL("player.png", function(Img){
-        Ply_Obj = Img;
-        Ply_Obj.scaleToWidth(150);
-        Ply_Obj.scaleToHeight(140);
-        Ply_Obj.set({
-            top: Ply_Y, left: Ply_X
+        Super_I = Img;
+        Super_I.scaleToWidth(150);
+        Super_I.scaleToHeight(140);
+        Super_I.set({
+            top: Super_Y, left: Super_X
         });
-        canvas.add(Ply_Obj);
+        Canvas.add(Super_I);
     });
 }
+
 function New_Img(Get_Img){
     fabric.Image.fromURL(Get_Img, function(Img){
-        Bl_Img = Img;
-        Bl_Img.scaleToWidth(Bl_W);
-        Bl_Img.scaleToHeight(Bl_H);
-        Bl_Img.set({
-            top: Ply_Y,
-            left: Ply_X
+        Super_BI = Img;
+        Super_BI.scaleToWidth(S_Width);
+        Super_BI.scaleToHeight(S_Height);
+        Super_BI.set({
+            top: Super_Y,
+            left: Super_X
         });
-        canvas.add(Bl_Img);
+        Canvas.add(Super_BI);
     });
 }
 
 window.addEventListener("keydown", My_Keys);
 
 function My_Keys(e){
-    keypressed = e.keyCode;
-    if(keypressed=='84'){
-        Ply_Img();
-        New_Img("trunk.jpg");
-        console.log("Trunk = t");
+    keyPressed = e.keyCode;
+    if(keyPressed=="70"){
+        New_Img("ironman_face.png");
+        console.log("Face");
     }
-    if(keypressed=='68'){
-        Ply_Img();
-        New_Img("dark_green.png");
-        console.log("Dark Green = d");
+    if(keyPressed=="76"){
+        New_Img("ironman_left_hand.png");
+        console.log("Left Hand");
     }
-    if(keypressed=='76'){
-        Ply_Img();
-        New_Img("light_green.png");
-        console.log("Light Green = l");
+    if(keyPressed=="82"){
+        New_Img("ironman_right_hand.png");
+        console.log("Right Hand");
     }
-    if(keypressed=='71'){
-        Ply_Img();
-        New_Img("ground.png");
-        console.log("Ground = g");
+    if(keyPressed=="66"){
+        New_Img("ironman_body.png");
+        console.log("Body");
     }
-    if(keypressed=='87'){
-        Ply_Img();
-        New_Img("wall.jpg");
-        console.log("Wall = w");
+    if(keyPressed=="72"){
+        New_Img("ironman_legs.png");
+        console.log("Legs");
     }
-    if(keypressed=='89'){
-        New_Img("yellow_wall.png");
-        console.log("Yellow Wall = y");
+    if(keyPressed=="38"){
+        Ply_Up()
+        Up();
+        console.log("Up");
     }
-    if(keypressed=='82'){
-        Ply_Img();
-        New_Img("roof.jpg");
-        console.log("Roof = r");
+    if(keyPressed=="40"){
+        Ply_Up()
+        Down();
+        console.log("Down");
     }
-    if(keypressed=='67'){
-        Ply_Img();
-        New_Img("cloud.jpg");
-        console.log("Cloud = c");
+    if(keyPressed=="39"){
+        Ply_Up()
+        Right();
+        console.log("Right");
     }
-    if(keypressed=='85'){
-        Ply_Img();
-        New_Img("unique.png");
-        console.log("Unique Block = u");
+    if(keyPressed=="37"){
+        Ply_Up();
+        Left();
+        console.log("Left");
     }
-    if (keypressed== "38"){
-        Ply_Img();
-        up();
-        console.log("Up");      
-    }
-    if (keypressed== "37"){
-        Ply_Img();
-     left();
-     console.log("Left");      
-    }
-    if (keypressed== "39"){
-        Ply_Img();
-        right();
-        console.log("Right");      
-    }
-    if (keypressed== "40"){
-        Ply_Img();
-        down();
-        console.log("Down");      
-    }
-    if(e.shiftKey == true && keypressed== "80"){
-        console.log("P and shift key pressed");
-        Bl_W = Bl_W + 10;
-        Bl_H = Bl_H + 10;
-        document.getElementById("C_W").innerHTML = Bl_W;
-        document.getElementById("C_H").innerHTML = Bl_H;
-    }
-    if(e.shiftKey == true && keypressed== "77"){
-        console.log("M and shift key pressed");
-        Bl_W = Bl_W - 10;
-        Bl_H = Bl_H - 10;
-        document.getElementById("C_W").innerHTML = Bl_W;
-        document.getElementById("C_H").innerHTML = Bl_H;
+    if(e.shiftKey== true && keyPressed=="80"){
+        console.log("Maximize");
+        S_Width = S_Width + 10;
+        S_Height = S_Height + 10;
+        document.getElementById("C_W").innerHTML = S_Width;
+        document.getElementById("C_H").innerHTML = S_Height;
     }
 }
 
-function up(){
-    if(Ply_Y >= 0){
-        Ply_Y = Ply_Y - Bl_H;
-        console.log("Block Image Height = " + Bl_H);
-        console.log("X = " + Ply_X + " Y = " + Ply_Y);
-        canvas.remove(Ply_Obj);
-        Ply_Img();
+function Up(){
+    if(Super_Y >= 0){
+        Super_Y = Super_Y - S_Height;
+        console.log("X = " + Super_X + " Y = " + Super_Y);
+        Canvas.remove(Super_I);
     }
 }
 
-function down(){
-    if(Ply_Y <= 600){
-        Ply_Y = Ply_Y + Bl_H;
-        console.log("Block Image Height = " + Bl_H);
-        console.log("X = " + Ply_X + " Y = " + Ply_Y);
-        canvas.remove(Ply_Obj);
-        Ply_Img();
+function Down(){
+    if(Super_Y <= 1000){
+        Super_Y = Super_Y + S_Height;
+        console.log("X = " + Super_X + " Y = " + Super_Y);
+        Canvas.remove(Super_I);
     }
 }
 
-function left(){
-    if(Ply_X >= 0){
-        Ply_X = Ply_X - Bl_W;
-        console.log("Block Image Width = " + Bl_W);
-        console.log("X = " + Ply_X + " Y = " + Ply_Y);
-        canvas.remove(Ply_Obj);
-        Ply_Img();
+function Left(){
+    if(Super_X >= 0){
+        Super_X = Super_X - S_Width;
+        console.log("X = " + Super_X + " Y = " + Super_Y);
+        Canvas.remove(Super_I);
     }
 }
 
-function right(){
-    if(Ply_X <= 600){
-        Ply_X = Ply_X + Bl_W;
-        console.log("Block Image Width = " + Bl_W);
-        console.log("X = " + Ply_X + " Y = " + Ply_Y);
-        canvas.remove(Ply_Obj);
-        Ply_Img();
+function Right(){
+    if(Super_X <= 690){
+        Super_X = Super_X + S_Width;
+        console.log("X = " + Super_X + " Y = " + Super_Y);
+        Canvas.remove(Super_I);
     }
 }
